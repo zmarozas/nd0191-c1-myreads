@@ -2,7 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import * as BooksAPI from "./BooksAPI";
 import Book from "./Book";
-const Search = ({ books, setShowSearchpage, updateBookShelf }) => {
+import { Link } from "react-router-dom";
+const Search = ({ books, updateBookShelf }) => {
   const [query, setQuery] = useState("");
   const [searchedBooks, setSearchedBooks] = useState([]);
   useEffect(() => {
@@ -28,9 +29,9 @@ const Search = ({ books, setShowSearchpage, updateBookShelf }) => {
   return (
     <div className="search-books">
       <div className="search-books-bar">
-        <a className="close-search" onClick={() => setShowSearchpage(false)}>
+        <Link to="/" className="close-search">
           Close
-        </a>
+        </Link>
         <div className="search-books-input-wrapper">
           <input
             type="text"

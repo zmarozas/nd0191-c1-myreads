@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import Main from "./Main";
 import Search from "./Search";
 import * as BooksAPI from "./BooksAPI";
-
+import { Route, Routes } from "react-router";
+import { Link } from "react-router-dom";
 function App() {
   useEffect(() => {
     BooksAPI.getAll().then((result) => {
@@ -25,28 +26,34 @@ function App() {
       setBooksArray(updatedBooks);
     });
   };
-  const [showSearchPage, setShowSearchpage] = useState(false);
   const [booksArray, setBooksArray] = useState([]);
 
   return (
     <div className="app">
-      {showSearchPage ? (
-        <Search
-          books={booksArray}
-          setShowSearchpage={setShowSearchpage}
-          updateBookShelf={updateBookShelf}
+      <Routes>
+        <Route
+          path="/search"
+          element={
+            <Search books={booksArray} updateBookShelf={updateBookShelf} />
+          }
         />
-      ) : (
-        <div className="list-books">
-          <Header />
-          <div className="list-books-content">
-            <Main books={booksArray} updateBookShelf={updateBookShelf} />
-          </div>
-          <div className="open-search">
-            <a onClick={() => setShowSearchpage(!showSearchPage)}>Add a book</a>
-          </div>
-        </div>
-      )}
+
+        <Route
+          exact
+          path="/"
+          element={
+            <div className="list-books">
+              <Header />
+              <div className="list-books-content">
+                <Main books={booksArray} updateBookShelf={updateBookShelf} />
+              </div>
+              <div className="open-search">
+                <Link to="/search">Add a book</Link>
+              </div>
+            </div>
+          }
+        />
+      </Routes>
     </div>
   );
 }
