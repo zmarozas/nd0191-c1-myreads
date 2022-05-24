@@ -27,7 +27,7 @@ const Search = ({ books, updateBookShelf }) => {
     } else {
       setSearchedBooks([]);
     }
-  }, [debouncedQuery]);
+  }, [debouncedQuery, books]);
   return (
     <div className="search-books">
       <div className="search-books-bar">
